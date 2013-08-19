@@ -1,0 +1,52 @@
+{
+    "name": "xport"
+  , "version": "0.0.0-dev"
+  , "description": "Export your templates to the client"
+  , "author": "benjreinhart"
+  , "engines":
+    {
+      "node": ">=0.8"
+    }
+
+  , "keywords":
+    [
+        "templates"
+      , "export"
+      , "browser"
+      , "client"
+      , "views"
+    ]
+
+  , "dependencies":
+    {
+        "readr": "~0.1"
+    }
+
+  , "devDependencies":
+    {
+        "chai"                : "~1.7.2"
+      , "sinon"               : "~1.7.3"
+      , "mocha"               : "~1.12.0"
+      , "coffee-script-redux" : "2.0.0-beta6"
+    }
+
+  , "repository":
+    {
+        "type" : "git"
+      , "url"  : "git@github.com:benjreinhart/xport.git"
+    }
+
+  , "bugs":
+    {
+        "url": "https://github.com/benjreinhart/xport/issues"
+    }
+
+  , "scripts":
+    {
+        "test": "make test"
+    }
+
+
+  , "license": "MIT"
+  , "main": "lib/index.js"
+}
