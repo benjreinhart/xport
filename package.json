@@ -19,7 +19,11 @@
 
   , "dependencies":
     {
-        "readr": "~0.1"
+        "nopt"      : "~2.1.2"
+      , "async"     : "~0.2.9"
+      , "readr"     : "~0.1"
+      , "esprima"   : "~1.0.3"
+      , "escodegen" : "~0.0.26"
     }
 
   , "devDependencies":
@@ -44,6 +48,11 @@
   , "scripts":
     {
         "test": "make test"
+    }
+
+  , "bin":
+    {
+        "xport": "./bin/xport"
     }
 
 
