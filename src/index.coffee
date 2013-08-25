@@ -16,7 +16,7 @@ buildAst = (files, options) ->
 
 generateFunctionBody = (files, options) ->
   templateVarDeclaration = (esprima.parse "var #{TEMPLATE_IDENTIFIER} = {};").body[0]
-  templateAssigments = files.map generateExpressionNode
+  templateAssigments = files.map generateTemplateAssignmentNode
   exportExpression = (esprima.parse options.export ? 'AppTemplates').body[0].expression
 
   lhsExpression =
@@ -38,7 +38,7 @@ generateFunctionBody = (files, options) ->
 
   [templateVarDeclaration].concat(templateAssigments).concat exportAssignment
 
-generateExpressionNode = (file) ->
+generateTemplateAssignmentNode = (file) ->
   type: 'ExpressionStatement'
   expression:
     type: 'AssignmentExpression'
