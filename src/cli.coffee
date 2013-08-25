@@ -8,10 +8,10 @@ escodegenFormat =
   indent:
     style: '  '
     base: 0
-  renumber: yes
-  hexadecimal: yes
   quotes: 'auto'
-  parentheses: no
+  renumber: true
+  hexadecimal: true
+  parentheses: false
 
 isAbsolutePath = (path) -> /^\//.test path
 resolveRelative = (relativePath) ->
@@ -24,9 +24,9 @@ options = do ->
     output: String
 
   aliases =
-    d: '--deps'
     e: '--extension'
     h: '--help'
+    l: '--list'
     o: '--output'
     v: '--version'
     x: '--export'
@@ -40,11 +40,11 @@ if options.help
   console.log "
   USAGE: xport OPT* path/to/templates OPT*
 
-  xport /path/to/templates -e mustache -x App.Templates -o public/templates.js
+  xport app/views -e mustache -x App.Templates -o public/templates.js
 
-  -d, --deps                    Do not bundle; list the files that would be bundled
   -e, --extension EXTENSION     Search for templates with extension EXTENSION
   -h, --help                    Display this help message and exit
+  -l, --list                    Do not bundle; list the files that would be bundled
   -o, --output FILE             Output to FILE instead of stdout
   -v, --version                 Display the current version number and exit
   -x, --export NAME             Export the template object as NAME
@@ -63,9 +63,12 @@ unless pathOpt?
 unless isAbsolutePath pathOpt
   pathOpt = resolveRelative pathOpt
 
-if options.deps
-  ((require 'readr').sync pathOpt, options).forEach (file) ->
-    console.log file.path
+if options.list
+  templates = ((require 'readr').sync pathOpt, options).reduce ((memo, file) ->
+    memo.push {path: file.path, friendlyPath: file.friendlyPath}
+    memo
+  ), []
+  console.log (JSON.stringify templates, null, 4)
   process.exit 0
 
 js = escodegen.generate (xport pathOpt, options), {format: escodegenFormat}
