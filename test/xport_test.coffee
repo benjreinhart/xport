@@ -13,11 +13,11 @@ escodegenFormat =
   hexadecimal: true
   parentheses: false
 
-getExpectedJS = (expectedLhsExpression = 'global.AppTemplates') ->
+getExpectedJS = (expectedLhsExpression) ->
   "(function (global) {
-  var templates = {};
-  templates['views/index'] = '<html></html>';
-  #{expectedLhsExpression} = templates;
+  var files = {};
+  files['views/index'] = '<html></html>';
+  #{expectedLhsExpression} = files;
 }.call(this, this));"
 
 
@@ -34,10 +34,7 @@ describe 'xport', ->
     afterEach ->
       readr.sync.restore()
 
-    it 'is exported as the export option if provided', ->
-      program = xport '/path/to/app', {extension: 'mustache'}
-      expect(escodegen.generate program, {format: escodegenFormat}).to.equal getExpectedJS()
-
+    it 'is a valid JS program', ->
       exported = "My.Application['templ-lates']"
       program = xport '/path/to/app', {extension: 'mustache', export: exported}
       expect(escodegen.generate program, {format: escodegenFormat}).to.equal (getExpectedJS exported)

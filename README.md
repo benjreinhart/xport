@@ -1,6 +1,6 @@
 # xport
 
-Export your templates (or any files) to the client.
+Export files to the client as JavaScript strings. Great for bundling templates/views and making them easily accessible to client side JavaScript.
 
 ## Install
 
@@ -9,17 +9,17 @@ Export your templates (or any files) to the client.
 ## Usage
 
 ```
-USAGE: xport OPT* path/to/templates OPT*
+USAGE: xport OPT* path/to/files OPT*
 
 xport app/views -e mustache -x App.Templates -o public/templates.js
 
 -c, --commonjs                Export a commonjs compatible module
--e, --extension EXTENSION     Search for files with extension EXTENSION
+-e, --extension EXTENSION     Only bundle files with extension EXTENSION
 -h, --help                    Display this help message and exit
 -l, --list                    Do not bundle; list the files that would be bundled
 -o, --output FILE             Output to FILE instead of stdout
 -v, --version                 Display the current version number and exit
--x, --export NAME             Export the template object as NAME
+-x, --export NAME             Export the files object as NAME
 ```
 
 ## Examples

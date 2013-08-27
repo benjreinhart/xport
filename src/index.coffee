@@ -1,23 +1,21 @@
 readr = require 'readr'
 esprima = require 'esprima'
 
-TEMPLATE_IDENTIFIER = 'templates'
-DEFAULT_EXPORT_IDENTIFIER = 'AppTemplates'
+FILE_IDENTIFIER = 'files'
 
 module.exports = (path, options = {}) ->
   files = readr.sync path, options
   buildAst files, options
 
 buildAst = (files, options) ->
-  wrapper = esprima.parse '(function(global){}).call(this, this)'
+  program = esprima.parse '(function(global){}).call(this, this)'
   body = generateFunctionBody files, options
-  wrapper.body[0].expression.callee.object.body.body = body
-
-  wrapper
+  program.body[0].expression.callee.object.body.body = body
+  program
 
 generateFunctionBody = (files, options) ->
-  templateVarDeclaration = (esprima.parse "var #{TEMPLATE_IDENTIFIER} = {};").body[0]
-  templateAssigments = files.map generateTemplateAssignmentNode
+  fileVarDeclaration = (esprima.parse "var #{FILE_IDENTIFIER} = {};").body[0]
+  fileAssignments = files.map generateFileAssignmentNode
   exportExpression = (esprima.parse (getLHSExportExpression options)).body[0].expression
 
   lhsExpression =
@@ -35,11 +33,11 @@ generateFunctionBody = (files, options) ->
       type: 'AssignmentExpression'
       operator: '='
       left: lhsExpression
-      right: {type: 'Identifier', name: TEMPLATE_IDENTIFIER}
+      right: {type: 'Identifier', name: FILE_IDENTIFIER}
 
-  [templateVarDeclaration].concat(templateAssigments).concat exportAssignment
+  [fileVarDeclaration].concat(fileAssignments).concat exportAssignment
 
-generateTemplateAssignmentNode = (file) ->
+generateFileAssignmentNode = (file) ->
   type: 'ExpressionStatement'
   expression:
     type: 'AssignmentExpression'
@@ -47,7 +45,7 @@ generateTemplateAssignmentNode = (file) ->
     left:
       type: 'MemberExpression'
       computed: true
-      object: {type: 'Identifier', name: TEMPLATE_IDENTIFIER}
+      object: {type: 'Identifier', name: FILE_IDENTIFIER}
       property: {type: 'Literal', value: file.friendlyPath ? file.path}
     right:
       type: 'Literal'
@@ -55,7 +53,4 @@ generateTemplateAssignmentNode = (file) ->
 
 
 getLHSExportExpression = (options) ->
-  return 'module.exports' if options.commonjs
-  return options.export if options.export?
-
-  DEFAULT_EXPORT_IDENTIFIER
+  if options.commonjs then 'module.exports' else options.export
