@@ -4,8 +4,7 @@ esprima = require 'esprima'
 FILE_IDENTIFIER = 'files'
 
 module.exports = (path, options = {}) ->
-  files = readr.sync path, options
-  buildAst files, options
+  buildAst (readr.sync path, options), options
 
 buildAst = (files, options) ->
   program = esprima.parse "(function(global, #{FILE_IDENTIFIER}){}).call(this, this, {})"
@@ -49,7 +48,6 @@ generateFileAssignmentNode = (file) ->
     right:
       type: 'Literal'
       value: file.contents
-
 
 getLHSExportExpression = (options) ->
   if options.commonjs then 'module.exports' else options.export
