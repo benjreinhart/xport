@@ -14,11 +14,10 @@ escodegenFormat =
   parentheses: false
 
 getExpectedJS = (expectedLhsExpression) ->
-  "(function (global) {
-  var files = {};
+  "(function (global, files) {
   files['views/index'] = '<html></html>';
   #{expectedLhsExpression} = files;
-}.call(this, this));"
+}.call(this, this, {}));"
 
 
 describe 'xport', ->

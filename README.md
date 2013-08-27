@@ -33,12 +33,11 @@ xport app/views -e mustache -o public/javascripts/templates.js -x App.Templates
 Generates public/javascripts/templates.js with the following contents:
 
 ```javascript
-(function (global) {
-  var templates = {};
-  templates['users/index'] = '[users/index content here]';
-  templates['users/show'] = '[users/show content here]';
-  App.Templates = templates;
-}.call(this, this));
+(function (global, files) {
+  files['users/index'] = '[users/index content here]';
+  files['users/show'] = '[users/show content here]';
+  App.Templates = files;
+}.call(this, this, {}));
 ```
 
 <hr />
@@ -52,12 +51,11 @@ xport app/views --commonjs -e mustache -o public/javascripts/templates.js -x App
 Generates public/javascripts/templates.js with the following contents:
 
 ```javascript
-(function (global) {
-  var templates = {};
-  templates['users/index'] = '[users/index content here]';
-  templates['users/show'] = '[users/show content here]';
-  module.exports = templates;
-}.call(this, this));
+(function (global, files) {
+  files['users/index'] = '[users/index content here]';
+  files['users/show'] = '[users/show content here]';
+  module.exports = files;
+}.call(this, this, {}));
 ```
 
 
