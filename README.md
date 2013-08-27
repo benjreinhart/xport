@@ -2,6 +2,10 @@
 
 Export your templates (or any files) to the client.
 
+## Install
+
+`npm install -g xport`
+
 ## Usage
 
 ```
