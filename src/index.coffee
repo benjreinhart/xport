@@ -8,8 +8,7 @@ module.exports = (path, options = {}) ->
 
 buildAst = (files, options) ->
   program = esprima.parse "(function(global, #{FILE_IDENTIFIER}){}).call(this, this, {})"
-  body = generateFunctionBody files, options
-  program.body[0].expression.callee.object.body.body = body
+  program.body[0].expression.callee.object.body.body = (generateFunctionBody files, options)
   program
 
 generateFunctionBody = (files, options) ->
@@ -25,15 +24,13 @@ generateFunctionBody = (files, options) ->
     else
       exportExpression
 
-  exportAssignment =
+  fileAssignments.concat
     type: 'ExpressionStatement'
     expression:
       type: 'AssignmentExpression'
       operator: '='
       left: lhsExpression
       right: {type: 'Identifier', name: FILE_IDENTIFIER}
-
-  fileAssignments.concat exportAssignment
 
 generateFileAssignmentNode = (file) ->
   type: 'ExpressionStatement'
