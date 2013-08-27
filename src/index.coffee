@@ -2,6 +2,7 @@ readr = require 'readr'
 esprima = require 'esprima'
 
 TEMPLATE_IDENTIFIER = 'templates'
+DEFAULT_EXPORT_IDENTIFIER = 'AppTemplates'
 
 module.exports = (path, options = {}) ->
   files = readr.sync path, options
@@ -17,7 +18,7 @@ buildAst = (files, options) ->
 generateFunctionBody = (files, options) ->
   templateVarDeclaration = (esprima.parse "var #{TEMPLATE_IDENTIFIER} = {};").body[0]
   templateAssigments = files.map generateTemplateAssignmentNode
-  exportExpression = (esprima.parse options.export ? 'AppTemplates').body[0].expression
+  exportExpression = (esprima.parse (getLHSExportExpression options)).body[0].expression
 
   lhsExpression =
     if exportExpression.type is 'Identifier'
@@ -51,3 +52,10 @@ generateTemplateAssignmentNode = (file) ->
     right:
       type: 'Literal'
       value: file.contents
+
+
+getLHSExportExpression = (options) ->
+  return 'module.exports' if options.commonjs
+  return options.export if options.export?
+
+  DEFAULT_EXPORT_IDENTIFIER

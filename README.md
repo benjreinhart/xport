@@ -9,6 +9,7 @@ USAGE: xport OPT* path/to/templates OPT*
 
 xport /path/to/templates -e mustache -x App.Templates -o public/templates.js
 
+-c, --commonjs                Export a commonjs compatible module
 -e, --extension EXTENSION     Search for templates with extension EXTENSION
 -h, --help                    Display this help message and exit
 -l, --list                    Do not bundle; list the files that would be bundled
@@ -35,6 +36,26 @@ Generates public/javascripts/templates.js with the following contents:
   App.Templates = templates;
 }.call(this, this));
 ```
+
+<hr />
+
+Do the same as the above but export as a commonjs module (for use with [browserify](https://github.com/substack/node-browserify) or [commonjs-everywhere](https://github.com/michaelficarra/commonjs-everywhere), for example):
+
+```
+xport app/views --commonjs -e mustache -o public/javascripts/templates.js -x App.Templates
+```
+
+Generates public/javascripts/templates.js with the following contents:
+
+```javascript
+(function (global) {
+  var templates = {};
+  templates['users/index'] = '[users/index content here]';
+  templates['users/show'] = '[users/show content here]';
+  module.exports = templates;
+}.call(this, this));
+```
+
 
 ## License
 

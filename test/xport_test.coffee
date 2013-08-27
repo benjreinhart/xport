@@ -13,16 +13,11 @@ escodegenFormat =
   hexadecimal: true
   parentheses: false
 
-expectedDefaultJS = "(function (global) {
+getExpectedJS = (expectedLhsExpression = 'global.AppTemplates') ->
+  "(function (global) {
   var templates = {};
   templates['views/index'] = '<html></html>';
-  global.AppTemplates = templates;
-}.call(this, this));"
-
-expectedJSWithExportOption = "(function (global) {
-  var templates = {};
-  templates['views/index'] = '<html></html>';
-  My.Application['templ-lates'] = templates;
+  #{expectedLhsExpression} = templates;
 }.call(this, this));"
 
 
@@ -39,10 +34,19 @@ describe 'xport', ->
     afterEach ->
       readr.sync.restore()
 
-    it 'is a js program that assigns file contents to a variable', ->
+    it 'is exported as the export option if provided', ->
       program = xport '/path/to/app', {extension: 'mustache'}
-      expect(escodegen.generate program, {format: escodegenFormat}).to.equal expectedDefaultJS
+      expect(escodegen.generate program, {format: escodegenFormat}).to.equal getExpectedJS()
 
-    it 'accepts an export option', ->
-      program = xport '/path/to/app', {extension: 'mustache', export: "My.Application['templ-lates']"}
-      expect(escodegen.generate program, {format: escodegenFormat}).to.equal expectedJSWithExportOption
+      exported = "My.Application['templ-lates']"
+      program = xport '/path/to/app', {extension: 'mustache', export: exported}
+      expect(escodegen.generate program, {format: escodegenFormat}).to.equal (getExpectedJS exported)
+
+    describe 'commonjs', ->
+      it 'is exported as commonjs if the commonjs option is true', ->
+        program = xport '/path/to/app', {extension: 'mustache', commonjs: true}
+        expect(escodegen.generate program, {format: escodegenFormat}).to.equal (getExpectedJS 'module.exports')
+
+      it 'takes precedence over an export option', ->
+        program = xport '/path/to/app', {extension: 'mustache', commonjs: true, export: "My.Application['templ-lates']"}
+        expect(escodegen.generate program, {format: escodegenFormat}).to.equal (getExpectedJS 'module.exports')
