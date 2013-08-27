@@ -11,10 +11,10 @@ Export your templates (or any files) to the client.
 ```
 USAGE: xport OPT* path/to/templates OPT*
 
-xport /path/to/templates -e mustache -x App.Templates -o public/templates.js
+xport app/views -e mustache -x App.Templates -o public/templates.js
 
 -c, --commonjs                Export a commonjs compatible module
--e, --extension EXTENSION     Search for templates with extension EXTENSION
+-e, --extension EXTENSION     Search for files with extension EXTENSION
 -h, --help                    Display this help message and exit
 -l, --list                    Do not bundle; list the files that would be bundled
 -o, --output FILE             Output to FILE instead of stdout
