@@ -1,17 +1,7 @@
 fs = require 'fs'
 Path = require 'path'
 nopt = require 'nopt'
-xport = require './'
-escodegen = require 'escodegen'
-
-escodegenFormat =
-  indent:
-    style: '  '
-    base: 0
-  quotes: 'auto'
-  renumber: true
-  hexadecimal: true
-  parentheses: false
+xport = require '../'
 
 isAbsolutePath = (path) -> /^\//.test path
 resolveRelative = (relativePath) ->
@@ -55,7 +45,7 @@ if options.help
   process.exit 0
 
 if options.version
-  console.log (require '../package.json').version
+  console.log (require '../../package.json').version
   process.exit 0
 
 unless pathOpt?
@@ -73,7 +63,7 @@ if options.list
   console.log (JSON.stringify files, null, 4)
   process.exit 0
 
-js = escodegen.generate (xport pathOpt, options), {format: escodegenFormat}
+js = xport pathOpt, options
 
 if (outputPath = options.output)?
   unless isAbsolutePath outputPath
