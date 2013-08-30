@@ -15,6 +15,7 @@ xport app/views -e mustache -x App.Templates -o public/templates.js
 
 -c, --commonjs                Export a commonjs compatible module
 -e, --extension EXTENSION     Only bundle files with extension EXTENSION
+-m, --minify                  Minify the compiled JavaScript
 -o, --output FILE             Output to FILE instead of stdout
 -x, --export NAME             Export the files object as NAME
 --help                        Display this help message and exit

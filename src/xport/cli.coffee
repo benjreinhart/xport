@@ -16,6 +16,7 @@ options = do ->
   aliases =
     c: '--commonjs'
     e: '--extension'
+    m: '--minify'
     o: '--output'
     x: '--export'
 
@@ -32,6 +33,7 @@ if options.help
 
   -c, --commonjs                Export a commonjs compatible module
   -e, --extension EXTENSION     Only bundle files with extension EXTENSION
+  -m, --minify                  Minify the compiled JavaScript
   -o, --output FILE             Output to FILE instead of stdout
   -x, --export NAME             Export the files object as NAME
   --help                        Display this help message and exit

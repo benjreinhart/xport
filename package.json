@@ -22,6 +22,7 @@
         "nopt"      : "~2.1.2"
       , "readr"     : "~0.1"
       , "esprima"   : "~1.0.3"
+      , "esmangle"  : "~0.0.15"
       , "escodegen" : "~0.0.26"
     }
 

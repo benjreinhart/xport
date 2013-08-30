@@ -1,3 +1,4 @@
+esmangle = require 'esmangle'
 escodegen = require 'escodegen'
 
 defaultEscodegenFormat =
@@ -9,7 +10,16 @@ defaultEscodegenFormat =
   hexadecimal: true
   parentheses: false
 
-module.exports = (ast, format = {}) ->
-  for own key, value of defaultEscodegenFormat
-    format[key] ?= value
+module.exports = (ast, options = {}) ->
+  minify = options.minify
+  delete options.minify
+
+  if minify
+    ast = esmangle.mangle (esmangle.optimize ast), destructive: true
+    format = escodegen.FORMAT_MINIFY
+  else
+    format = options
+    for own key, value of defaultEscodegenFormat
+      format[key] ?= value
+
   escodegen.generate ast, {format}
