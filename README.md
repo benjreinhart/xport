@@ -15,11 +15,11 @@ xport app/views -e mustache -x App.Templates -o public/templates.js
 
 -c, --commonjs                Export a commonjs compatible module
 -e, --extension EXTENSION     Only bundle files with extension EXTENSION
--h, --help                    Display this help message and exit
--l, --list                    Do not bundle; list the files that would be bundled
 -o, --output FILE             Output to FILE instead of stdout
--v, --version                 Display the current version number and exit
 -x, --export NAME             Export the files object as NAME
+--help                        Display this help message and exit
+--list                        Do not bundle; list the files that would be bundled
+--version                     Display the current version number and exit
 ```
 
 ## Examples

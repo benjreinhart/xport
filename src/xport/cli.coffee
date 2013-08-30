@@ -16,10 +16,7 @@ options = do ->
   aliases =
     c: '--commonjs'
     e: '--extension'
-    h: '--help'
-    l: '--list'
     o: '--output'
-    v: '--version'
     x: '--export'
 
   nopt opts, aliases, process.argv, 2
@@ -35,11 +32,11 @@ if options.help
 
   -c, --commonjs                Export a commonjs compatible module
   -e, --extension EXTENSION     Only bundle files with extension EXTENSION
-  -h, --help                    Display this help message and exit
-  -l, --list                    Do not bundle; list the files that would be bundled
   -o, --output FILE             Output to FILE instead of stdout
-  -v, --version                 Display the current version number and exit
   -x, --export NAME             Export the files object as NAME
+  --help                        Display this help message and exit
+  --list                        Do not bundle; list the files that would be bundled
+  --version                     Display the current version number and exit
   "
 
   process.exit 0
