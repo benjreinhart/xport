@@ -1,6 +1,6 @@
 {
     "name": "xport"
-  , "version": "0.0.4-dev"
+  , "version": "0.0.5-dev"
   , "description": "Export your templates to the client"
   , "author": "benjreinhart"
   , "engines":
