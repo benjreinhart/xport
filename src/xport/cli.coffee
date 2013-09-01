@@ -51,15 +51,9 @@ unless pathOpt?
   console.error 'wrong number of entry paths given; expected 1'
   process.exit 1
 
-unless isAbsolutePath pathOpt
-  pathOpt = resolveRelative pathOpt
-
 if options.list
-  files = ((require 'readr').sync pathOpt, options).reduce ((memo, file) ->
-    memo.push {path: file.path, friendlyPath: file.friendlyPath}
-    memo
-  ), []
-  console.log (JSON.stringify files, null, 4)
+  paths = (require 'readr').getPathsSync pathOpt, options
+  console.log JSON.stringify paths, null, 4
   process.exit 0
 
 js = xport pathOpt, options
