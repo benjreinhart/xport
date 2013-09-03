@@ -46,7 +46,7 @@ Generates public/javascripts/templates.js with the following contents:
 Do the same as the above but export as a commonjs module (i.e. for use with [browserify](https://github.com/substack/node-browserify) or [commonjs-everywhere](https://github.com/michaelficarra/commonjs-everywhere)):
 
 ```
-xport app/views --commonjs -e mustache -o public/javascripts/templates.js -x App.Templates
+xport app/views --commonjs -e mustache -o public/javascripts/templates.js
 ```
 
 Generates public/javascripts/templates.js with the following contents:
