@@ -9,12 +9,13 @@ resolveRelative = (relativePath) ->
 
 options = do ->
   opts =
+    deps: [String, Array]
     export: String
     extension: String
     output: String
 
   aliases =
-    c: '--commonjs'
+    d: '--deps'
     e: '--extension'
     m: '--minify'
     o: '--output'
@@ -31,11 +32,15 @@ if options.help
 
   xport app/views -e mustache -x App.Templates -o public/templates.js
 
-  -c, --commonjs                Export a commonjs compatible module
   -e, --extension EXTENSION     Only bundle files with extension EXTENSION
+  -d, --deps DEPENDENCY:ARG     For use with --amd flag; specify dependencies and
+                                their corresponding argument's names
   -m, --minify                  Minify the compiled JavaScript
   -o, --output FILE             Output to FILE instead of stdout
-  -x, --export NAME             Export the files object as NAME
+  -x, --export NAME             Export the files object as NAME; if --amd flag
+                                is specified, then the module id will be NAME
+  --amd                         Export a AMD compatible module
+  --commonjs                    Export a commonjs compatible module
   --help                        Display this help message and exit
   --list                        Do not bundle; list the files that would be bundled
   --version                     Display the current version number and exit
