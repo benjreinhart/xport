@@ -85,11 +85,7 @@ define('app-templates', [
 });
 ```
 
-With the `--amd` flag, dependencies and module id (`-x` option in this context) are optional. Dependencies function argument is the value after the colon. For example, `myModule` is the function argument when given this dependency: `--deps my-module:myModule`. If the function argument name is the same as the module ID, the colon can be left off, i.e.
-
-```
---deps moduleOne --deps moduleTwo
-```
+With the `--amd` flag, dependencies and module id (`-x` option in this context) are optional. Dependencies' function argument is the value after the colon. For example, `myModule` is the function argument when given a dependency named `my-module`: `--deps my-module:myModule`. If the function argument name is the same as the module id, the colon can be left off.
 
 
 ## License
