@@ -9,7 +9,27 @@ module.exports = (path, options = {}) ->
 
 buildProgram = (files, options) ->
   program = esprima.parse "(function(global, #{FILE_IDENTIFIER}){}).call(this, this, {})"
-  program.body[0].expression.callee.object.body.body = (generateFunctionBody files, options)
+
+  fileAssignments = files.map generateFileAssignmentNode
+  exportExpression = (esprima.parse (getLHSExportExpression options)).body[0].expression
+
+  lhsExpression =
+    if exportExpression.type is 'Identifier'
+      type: 'MemberExpression'
+      computed: false
+      object: {type: 'Identifier', name: 'global'}
+      property: {type: 'Identifier', name: exportExpression.name}
+    else
+      exportExpression
+
+  program.body[0].expression.callee.object.body.body = fileAssignments.concat
+    type: 'ExpressionStatement'
+    expression:
+      type: 'AssignmentExpression'
+      operator: '='
+      left: lhsExpression
+      right: {type: 'Identifier', name: FILE_IDENTIFIER}
+
   program
 
 buildAmdProgram = (files, options) ->
@@ -37,27 +57,6 @@ buildAmdProgram = (files, options) ->
   callExpression.arguments.push moduleDefinition
 
   program
-
-generateFunctionBody = (files, options) ->
-  fileAssignments = files.map generateFileAssignmentNode
-  exportExpression = (esprima.parse (getLHSExportExpression options)).body[0].expression
-
-  lhsExpression =
-    if exportExpression.type is 'Identifier'
-      type: 'MemberExpression'
-      computed: false
-      object: {type: 'Identifier', name: 'global'}
-      property: {type: 'Identifier', name: exportExpression.name}
-    else
-      exportExpression
-
-  fileAssignments.concat
-    type: 'ExpressionStatement'
-    expression:
-      type: 'AssignmentExpression'
-      operator: '='
-      left: lhsExpression
-      right: {type: 'Identifier', name: FILE_IDENTIFIER}
 
 generateFileAssignmentNode = (file) ->
   type: 'ExpressionStatement'
