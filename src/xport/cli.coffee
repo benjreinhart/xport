@@ -40,7 +40,7 @@ if options.help
   -x, --export NAME             Export the files object as NAME; if --amd flag
                                 is specified, then the module id will be NAME
   --amd                         Export a AMD compatible module
-  --commonjs                    Export a commonjs compatible module
+  --commonjs                    Export a CommonJS compatible module
   --help                        Display this help message and exit
   --list                        Do not bundle; list the files that would be bundled
   --version                     Display the current version number and exit

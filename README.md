@@ -21,7 +21,7 @@ xport app/views -e mustache -x App.Templates -o public/templates.js
 -x, --export NAME             Export the files object as NAME; if --amd flag
                               is specified, then the module id will be NAME
 --amd                         Export a AMD compatible module
---commonjs                    Export a commonjs compatible module
+--commonjs                    Export a CommonJS compatible module
 --help                        Display this help message and exit
 --list                        Do not bundle; list the files that would be bundled
 --version                     Display the current version number and exit
@@ -47,7 +47,7 @@ Generates public/javascripts/templates.js with the following contents:
 
 <hr />
 
-Do the same as the above but export a [commonjs compatible module](http://wiki.commonjs.org/wiki/CommonJS) (i.e. for use with [browserify](https://github.com/substack/node-browserify) or [commonjs-everywhere](https://github.com/michaelficarra/commonjs-everywhere)):
+Do the same as the above but export a [CommonJS compatible module](http://wiki.commonjs.org/wiki/CommonJS) (i.e. for use with [browserify](https://github.com/substack/node-browserify) or [commonjs-everywhere](https://github.com/michaelficarra/commonjs-everywhere)):
 
 ```
 xport app/views --commonjs -e mustache -o public/javascripts/templates.js
