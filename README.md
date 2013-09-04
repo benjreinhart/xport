@@ -72,7 +72,7 @@ Generates public/javascripts/templates.js with the following contents:
 
 <hr />
 
-Do the same as the above but export an [AMD compatible module](http://requirejs.org/docs/api.html#define) and include a couple of dependencies.
+Do the same as the above but export an [AMD compatible module](http://requirejs.org/docs/api.html#define) and include a couple of dependencies:
 
 ```
 xport app/views --amd -e mustache -x app-templates --deps my-module:myModule --deps module-two:module2 -o public/javascripts/templates.js
