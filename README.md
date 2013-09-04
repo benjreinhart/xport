@@ -2,6 +2,13 @@
 
 Export files to the client as JavaScript strings. Great for bundling templates/views and making them easily accessible to client side JavaScript.
 
+## Features
+
+&#x2713; CommonJS support <br />
+&#x2713; AMD support <br />
+&#x2713; Minification <br />
+&#x2713; Human readable file paths
+
 ## Install
 
 `npm install -g xport`
