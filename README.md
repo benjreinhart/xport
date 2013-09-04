@@ -15,12 +15,12 @@ xport app/views -e mustache -x App.Templates -o public/templates.js
 
 -e, --extension EXTENSION     Only bundle files with extension EXTENSION
 -d, --deps DEPENDENCY:ARG     For use with --amd flag; specify dependencies and
-                              their corresponding argument's names
+                              their corresponding argument identifiers
 -m, --minify                  Minify the compiled JavaScript
 -o, --output FILE             Output to FILE instead of stdout
 -x, --export NAME             Export the files object as NAME; if --amd flag
                               is specified, then the module id will be NAME
---amd                         Export a AMD compatible module
+--amd                         Export an AMD compatible module
 --commonjs                    Export a CommonJS compatible module
 --help                        Display this help message and exit
 --list                        Do not bundle; list the files that would be bundled
